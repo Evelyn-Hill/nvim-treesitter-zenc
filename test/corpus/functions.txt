@@ -1,0 +1,155 @@
+================================================================================
+Simple function
+================================================================================
+
+fn add(a: int, b: int) -> int {
+    return a + b;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (primitive_type))
+      (parameter
+        name: (identifier)
+        type: (primitive_type)))
+    return_type: (primitive_type)
+    body: (block
+      (return_statement
+        (binary_expression
+          left: (identifier)
+          right: (identifier))))))
+
+================================================================================
+Function with no return type
+================================================================================
+
+fn greet(name: string) {
+    println("Hello, {name}");
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (primitive_type)))
+    body: (block
+      (expression_statement
+        (print_expression
+          (println_call
+            (interpolated_string
+              (string_content)
+              (interpolation
+                (identifier))
+              (string_content))))))))
+
+================================================================================
+Async function
+================================================================================
+
+async fn fetch_data() -> string {
+    return await get_remote();
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    parameters: (parameter_list)
+    return_type: (primitive_type)
+    body: (block
+      (return_statement
+        (await_expression
+          expression: (call_expression
+            function: (identifier)))))))
+
+================================================================================
+Public function
+================================================================================
+
+pub fn public_func() {
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block)))
+
+================================================================================
+Lambda expression
+================================================================================
+
+var double = x -> x * 2;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (lambda_expression
+      parameter: (identifier)
+      body: (binary_expression
+        left: (identifier)
+        right: (integer_literal)))))
+
+================================================================================
+Block lambda expression
+================================================================================
+
+var full = fn(x: int) -> int {
+    return x * 2;
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (block_lambda_expression
+      (lambda_parameter
+        name: (identifier)
+        type: (primitive_type))
+      return_type: (primitive_type)
+      body: (block
+        (return_statement
+          (binary_expression
+            left: (identifier)
+            right: (integer_literal)))))))
+
+================================================================================
+Generic function
+================================================================================
+
+fn identity<T>(val: T) -> T {
+    return val;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    (generic_parameters
+      (generic_parameter
+        name: (type_identifier)))
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (type_identifier)))
+    return_type: (type_identifier)
+    body: (block
+      (return_statement
+        (identifier)))))

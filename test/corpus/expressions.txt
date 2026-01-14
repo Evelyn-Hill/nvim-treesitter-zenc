@@ -1,0 +1,184 @@
+================================================================================
+Null coalescing
+================================================================================
+
+var x = val ?? default;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (null_coalescing_expression
+      left: (identifier)
+      right: (identifier))))
+
+================================================================================
+Null coalescing assignment
+================================================================================
+
+val ??= init;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (expression_statement
+    (null_coalescing_assignment
+      left: (identifier)
+      right: (identifier))))
+
+================================================================================
+Safe navigation
+================================================================================
+
+var x = ptr?.field;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (safe_navigation_expression
+      object: (identifier)
+      member: (identifier))))
+
+================================================================================
+Try operator
+================================================================================
+
+var result = operation()?;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (try_expression
+      expression: (call_expression
+        function: (identifier)))))
+
+================================================================================
+Ternary expression
+================================================================================
+
+var y = if x > 10 ? 1 : 0;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (ternary_expression
+      condition: (comparison_expression
+        left: (identifier)
+        right: (integer_literal))
+      consequence: (integer_literal)
+      alternative: (integer_literal))))
+
+================================================================================
+Named argument call
+================================================================================
+
+add(a: 10, b: 20);
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (expression_statement
+    (call_expression
+      function: (identifier)
+      (argument
+        name: (identifier)
+        value: (integer_literal))
+      (argument
+        name: (identifier)
+        value: (integer_literal)))))
+
+================================================================================
+Method call
+================================================================================
+
+obj.method(arg);
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (expression_statement
+    (method_call_expression
+      object: (identifier)
+      method: (identifier)
+      (argument
+        value: (identifier)))))
+
+================================================================================
+Tuple access
+================================================================================
+
+var x = pair.0;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (member_expression
+      object: (identifier)
+      member: (integer_literal))))
+
+================================================================================
+Cast expression
+================================================================================
+
+var x = value as int;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (cast_expression
+      value: (identifier)
+      type: (primitive_type))))
+
+================================================================================
+Sizeof expression
+================================================================================
+
+var size = sizeof(int);
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (sizeof_expression
+      (primitive_type))))
+
+================================================================================
+Embed expression
+================================================================================
+
+var png = embed "assets/logo.png";
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (embed_expression
+      path: (string_literal
+        (string_content)))))
+
+================================================================================
+Await expression
+================================================================================
+
+var result = await future;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (await_expression
+      expression: (identifier))))

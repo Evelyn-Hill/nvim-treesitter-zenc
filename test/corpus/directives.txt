@@ -1,0 +1,158 @@
+================================================================================
+Build directive - include
+================================================================================
+
+//> include: ./include
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (build_directive
+    directive: (build_directive_type)
+    value: (build_directive_value)))
+
+================================================================================
+Build directive - link
+================================================================================
+
+//> link: -lraylib -lm
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (build_directive
+    directive: (build_directive_type)
+    value: (build_directive_value)))
+
+================================================================================
+Build directive - immutable by default
+================================================================================
+
+//> immutable-by-default
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (build_directive
+    directive: (build_directive_type)))
+
+================================================================================
+Preprocessor define
+================================================================================
+
+#define MAX_BUFFER 1024
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (preprocessor_directive
+    (define_directive
+      name: (identifier)
+      value: (preprocessor_value))))
+
+================================================================================
+Preprocessor include
+================================================================================
+
+#include "header.h"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (preprocessor_directive
+    (include_directive
+      path: (string_literal
+        (string_content)))))
+
+================================================================================
+Attribute on function
+================================================================================
+
+@inline
+fn fast_add(a: int, b: int) -> int {
+    return a + b;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (attribute_list
+      (attribute
+        name: (attribute_name)))
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        name: (identifier)
+        type: (primitive_type))
+      (parameter
+        name: (identifier)
+        type: (primitive_type)))
+    return_type: (primitive_type)
+    body: (block
+      (return_statement
+        (binary_expression
+          left: (identifier)
+          right: (identifier))))))
+
+================================================================================
+Attribute with arguments
+================================================================================
+
+@deprecated("Use new_func instead")
+fn old_func() {
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (attribute_list
+      (attribute
+        name: (attribute_name)
+        (attribute_arguments
+          (string_literal
+            (string_content)))))
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block)))
+
+================================================================================
+Comptime block
+================================================================================
+
+comptime {
+    println("Compile time!");
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (comptime_block
+    body: (block
+      (expression_statement
+        (print_expression
+          (println_call
+            (interpolated_string
+              (string_content))))))))
+
+================================================================================
+Inline assembly
+================================================================================
+
+asm {
+    "nop"
+    "mfence"
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (expression_statement
+    (asm_expression
+      (asm_content
+        (string_literal
+          (string_content)))
+      (asm_content
+        (string_literal
+          (string_content))))))

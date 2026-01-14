@@ -1,0 +1,105 @@
+================================================================================
+Variable declaration with type inference
+================================================================================
+
+var x = 42;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (integer_literal)))
+
+================================================================================
+Variable declaration with explicit type
+================================================================================
+
+var explicit: float = 1.0;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    type: (primitive_type)
+    value: (float_literal)))
+
+================================================================================
+Mutable variable declaration
+================================================================================
+
+var mut y = 10;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (integer_literal)))
+
+================================================================================
+Constant declaration
+================================================================================
+
+const PI = 3.14159;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    value: (float_literal)))
+
+================================================================================
+Autofree variable
+================================================================================
+
+autofree var buffer = malloc(1024);
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (call_expression
+      function: (identifier)
+      (argument
+        value: (integer_literal)))))
+
+================================================================================
+Array declaration
+================================================================================
+
+var ints: int[5] = {1, 2, 3, 4, 5};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    type: (array_type
+      element: (primitive_type)
+      size: (integer_literal))
+    value: (array_expression
+      (integer_literal)
+      (integer_literal)
+      (integer_literal)
+      (integer_literal)
+      (integer_literal))))
+
+================================================================================
+Tuple declaration
+================================================================================
+
+var pair = (1, "Hello");
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (tuple_expression
+      (integer_literal)
+      (string_literal
+        (string_content)))))

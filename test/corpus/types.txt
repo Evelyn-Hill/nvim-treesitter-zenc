@@ -1,0 +1,211 @@
+================================================================================
+Struct definition
+================================================================================
+
+struct Point {
+    x: f32;
+    y: f32;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (struct_definition
+    name: (type_identifier)
+    (struct_field
+      (field_definition
+        name: (identifier)
+        type: (primitive_type)))
+    (struct_field
+      (field_definition
+        name: (identifier)
+        type: (primitive_type)))))
+
+================================================================================
+Struct with composition
+================================================================================
+
+struct Player {
+    use Entity;
+    health: int;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (struct_definition
+    name: (type_identifier)
+    (struct_field
+      (composition_field
+        type: (type_identifier)))
+    (struct_field
+      (field_definition
+        name: (identifier)
+        type: (primitive_type)))))
+
+================================================================================
+Generic struct
+================================================================================
+
+struct Box<T> {
+    item: T;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (struct_definition
+    name: (type_identifier)
+    (generic_parameters
+      (generic_parameter
+        name: (type_identifier)))
+    (struct_field
+      (field_definition
+        name: (identifier)
+        type: (type_identifier)))))
+
+================================================================================
+Enum definition
+================================================================================
+
+enum Color {
+    Red,
+    Green,
+    Blue
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (enum_definition
+    name: (type_identifier)
+    (enum_variant
+      name: (identifier))
+    (enum_variant
+      name: (identifier))
+    (enum_variant
+      name: (identifier))))
+
+================================================================================
+Enum with associated data
+================================================================================
+
+enum Shape {
+    Circle(f32),
+    Rectangle(f32, f32)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (enum_definition
+    name: (type_identifier)
+    (enum_variant
+      name: (identifier)
+      (enum_variant_field
+        type: (primitive_type)))
+    (enum_variant
+      name: (identifier)
+      (enum_variant_field
+        type: (primitive_type))
+      (enum_variant_field
+        type: (primitive_type)))))
+
+================================================================================
+Union definition
+================================================================================
+
+union Data {
+    i: int;
+    f: f32;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (union_definition
+    name: (type_identifier)
+    (field_definition
+      name: (identifier)
+      type: (primitive_type))
+    (field_definition
+      name: (identifier)
+      type: (primitive_type))))
+
+================================================================================
+Trait definition
+================================================================================
+
+trait Drawable {
+    fn draw(self);
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (trait_definition
+    name: (type_identifier)
+    (trait_item
+      (trait_function
+        name: (identifier)
+        parameters: (parameter_list
+          (self_parameter))))))
+
+================================================================================
+Impl block
+================================================================================
+
+impl Point {
+    fn new(x: f32, y: f32) -> Point {
+        return Point { x: x, y: y };
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (impl_block
+    type: (type_identifier)
+    (impl_item
+      (function_definition
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            name: (identifier)
+            type: (primitive_type))
+          (parameter
+            name: (identifier)
+            type: (primitive_type)))
+        return_type: (type_identifier)
+        body: (block
+          (return_statement
+            (struct_expression
+              type: (type_identifier)
+              (field_initializer
+                name: (identifier)
+                value: (identifier))
+              (field_initializer
+                name: (identifier)
+                value: (identifier)))))))))
+
+================================================================================
+Impl trait for type
+================================================================================
+
+impl Drawable for Circle {
+    fn draw(self) {
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (impl_block
+    trait: (type_identifier)
+    type: (type_identifier)
+    (impl_item
+      (function_definition
+        name: (identifier)
+        parameters: (parameter_list
+          (self_parameter))
+        body: (block)))))

@@ -1,0 +1,95 @@
+//> link: -lm
+//> include: ./include
+
+#define MAX_SIZE 1024
+
+@inline
+	fn add(a: int, b: int) -> int {
+		return a + b;
+	}
+
+struct Point {
+	x: f32;
+	y: f32;
+}
+
+impl Point {
+	fn new(x: f32, y: f32) -> Point {
+		return Point { x: x, y: y };
+	}
+
+	fn dist(self) -> f32 {
+		return sqrt(self.x * self.x + self.y * self.y);
+	}
+}
+
+enum Shape {
+	Circle(f32),
+	Rectangle(f32, f32)
+}
+
+struct Thing2<T> {
+
+}
+
+trait Drawable {
+	fn draw(self);
+}
+
+union Data {
+	i: int;
+	f: f32;
+}
+
+struct Flags {
+	valid: U8 : 1;
+	invalid: U8 : 3;
+}
+
+fn main() {
+	var x = 42;
+	const PI = 3.14159;
+	var mut counter = 0;
+
+	if x > 10 {
+		println("x is greater than 10");
+	} else {
+			println("x is 10 or less");
+		}
+
+
+	for i in 0..10 {
+		counter = counter + 1;
+	}
+
+
+
+	match x {
+		1 => println("one"),
+		2 | 3 => println("two or three"),
+		_ => println("other"),
+	}
+
+	var point = Point::new(3.0, 4.0);
+	var distance = point.dist();
+
+	var double = x -> x * 2;
+	var result = double(21);
+
+	defer cleanup();
+
+	var value = ptr?.field ?? default_value;
+
+	guard result != null else {
+		return;
+	}
+}
+
+async fn fetch_data() -> string {
+	var future = get_remote();
+	return await future;
+}
+
+comptime {
+	println("Compiling...");
+}
