@@ -29,7 +29,7 @@ local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
 parser_config.zenc = {
   install_info = {
-    url = "https://github.com/z-libs/tree-sitter-zenc",
+    url = "https://github.com/Evelyn-Hill/tree-sitter-zenc",
     files = { "src/parser.c" },
     branch = "main",
   },
@@ -40,7 +40,6 @@ parser_config.zenc = {
 vim.filetype.add({
   extension = {
     zc = "zenc",
-    zenc = "zenc",
   },
 })
 ```
@@ -56,7 +55,7 @@ Then install the parser:
 1. **Clone and build the parser:**
 
 ```bash
-git clone https://github.com/z-libs/tree-sitter-zenc.git
+git clone https://github.com/Evelyn-Hill/tree-sitter-zenc.git
 cd tree-sitter-zenc
 make
 ```
@@ -86,7 +85,6 @@ cp queries/*.scm ~/.config/nvim/queries/zenc/
 vim.filetype.add({
   extension = {
     zc = "zenc",
-    zenc = "zenc",
   },
 })
 ```
@@ -102,7 +100,7 @@ vim.filetype.add({
 
     parser_config.zenc = {
       install_info = {
-        url = "https://github.com/z-libs/tree-sitter-zenc",
+        url = "https://github.com/Evelyn-Hill/nvim-treesitter-zenc",
         files = { "src/parser.c" },
         branch = "main",
       },
@@ -112,7 +110,6 @@ vim.filetype.add({
     vim.filetype.add({
       extension = {
         zc = "zenc",
-        zenc = "zenc",
       },
     })
 
@@ -125,42 +122,9 @@ vim.filetype.add({
 }
 ```
 
-### Option 4: Using packer.nvim
-
-```lua
-use {
-  "nvim-treesitter/nvim-treesitter",
-  run = ":TSUpdate",
-  config = function()
-    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-
-    parser_config.zenc = {
-      install_info = {
-        url = "https://github.com/z-libs/tree-sitter-zenc",
-        files = { "src/parser.c" },
-        branch = "main",
-      },
-      filetype = "zenc",
-    }
-
-    vim.filetype.add({
-      extension = {
-        zc = "zenc",
-        zenc = "zenc",
-      },
-    })
-
-    require("nvim-treesitter.configs").setup({
-      highlight = { enable = true },
-      indent = { enable = true },
-    })
-  end,
-}
-```
-
 ## Verifying Installation
 
-1. Open a `.zc` or `.zenc` file
+1. Open a `.zc` file
 2. Run `:InspectTree` to view the syntax tree
 3. Check that highlighting is working with `:TSHighlightCapturesUnderCursor`
 
@@ -173,58 +137,3 @@ use {
 | `indents.scm` | Automatic indentation |
 | `folds.scm` | Code folding regions |
 | `tags.scm` | Symbol tagging for navigation |
-
-## Language Overview
-
-Zen-C is a modern systems programming language with features including:
-
-- Functions with generics and attributes
-- Structs, enums, unions, and traits
-- Pattern matching with `match`
-- Async/await support
-- Optional types and null safety (`?`, `?.`, `??`)
-- Defer statements for cleanup
-- Compile-time evaluation (`comptime`)
-- Build directives (`//> link`, `//> include`, etc.)
-
-## Example
-
-```zenc
-//> link: -lm
-
-@inline
-fn add(a: i32, b: i32) -> i32 {
-    return a + b;
-}
-
-struct Point {
-    x: f64,
-    y: f64,
-}
-
-impl Point {
-    fn new(x: f64, y: f64) -> Point {
-        return Point { x: x, y: y };
-    }
-
-    fn dist(self) -> f64 {
-        return sqrt(self.x * self.x + self.y * self.y);
-    }
-}
-
-fn main() -> i32 {
-    var point = Point::new(3.0, 4.0);
-    const distance = point.dist();
-
-    match distance {
-        0.0 => print("At origin"),
-        _ => print("Distance: {distance}"),
-    }
-
-    return 0;
-}
-```
-
-## License
-
-MIT
